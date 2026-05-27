@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class ArrayShift {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int[] arr = new int[20];
+
+        System.out.print("Enter the number of elements (N): ");
+        int n = scanner.nextInt();
+
+        System.out.println("Enter " + n + " elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        System.out.print("Old Array: ");
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+
+        System.out.print("Enter key value: ");
+        int key = scanner.nextInt();
+        System.out.print("Enter location: ");
+        int loc = scanner.nextInt();
+
+        if (loc >= 0 && loc <= n && n < 20) {
+            for (int i = n; i > loc; i--) {
+                arr[i] = arr[i - 1];
+            }
+            arr[loc] = key;
+            n++;
+
+            System.out.print("New Array: ");
+            for (int i = 0; i < n; i++) {
+                System.out.print(arr[i] + " ");
+            }
+            System.out.println();
+        } else {
+            System.out.println("Invalid input.");
+        }
+
+        scanner.close();
+    }
+}
