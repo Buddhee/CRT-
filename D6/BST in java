@@ -1,0 +1,139 @@
+//BST in java
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node left, right;
+
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+public class BSTMenu {
+
+    Node root;
+
+    // Insert Node
+    Node insert(Node root, int data) {
+        if (root == null) {
+            root = new Node(data);
+            return root;
+        }
+
+        if (data < root.data)
+            root.left = insert(root.left, data);
+        else if (data > root.data)
+            root.right = insert(root.right, data);
+
+        return root;
+    }
+
+    // Search Node
+    boolean search(Node root, int key) {
+        if (root == null)
+            return false;
+
+        if (root.data == key)
+            return true;
+
+        if (key < root.data)
+            return search(root.left, key);
+        else
+            return search(root.right, key);
+    }
+
+    // Inorder Traversal
+    void inorder(Node root) {
+        if (root != null) {
+            inorder(root.left);
+            System.out.print(root.data + " ");
+            inorder(root.right);
+        }
+    }
+
+    // Preorder Traversal
+    void preorder(Node root) {
+        if (root != null) {
+            System.out.print(root.data + " ");
+            preorder(root.left);
+            preorder(root.right);
+        }
+    }
+
+    // Postorder Traversal
+    void postorder(Node root) {
+        if (root != null) {
+            postorder(root.left);
+            postorder(root.right);
+            System.out.print(root.data + " ");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        BSTMenu tree = new BSTMenu();
+
+        int choice, value;
+
+        do {
+            System.out.println("\n===== BST MENU =====");
+            System.out.println("1. Insert Node");
+            System.out.println("2. Search Node");
+            System.out.println("3. Inorder Traversal");
+            System.out.println("4. Preorder Traversal");
+            System.out.println("5. Postorder Traversal");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter value to insert: ");
+                    value = sc.nextInt();
+                    tree.root = tree.insert(tree.root, value);
+                    System.out.println("Node Inserted.");
+                    break;
+
+                case 2:
+                    System.out.print("Enter value to search: ");
+                    value = sc.nextInt();
+                    if (tree.search(tree.root, value))
+                        System.out.println("Node Found.");
+                    else
+                        System.out.println("Node Not Found.");
+                    break;
+
+                case 3:
+                    System.out.print("Inorder Traversal: ");
+                    tree.inorder(tree.root);
+                    System.out.println();
+                    break;
+
+                case 4:
+                    System.out.print("Preorder Traversal: ");
+                    tree.preorder(tree.root);
+                    System.out.println();
+                    break;
+
+                case 5:
+                    System.out.print("Postorder Traversal: ");
+                    tree.postorder(tree.root);
+                    System.out.println();
+                    break;
+
+                case 6:
+                    System.out.println("Program Ended.");
+                    break;
+
+                default:
+                    System.out.println("Invalid Choice!");
+            }
+
+        } while (choice != 6);
+
+        sc.close();
+    }
+}
