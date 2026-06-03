@@ -1,0 +1,13 @@
+CREATE TABLE emp (
+       epid NUMBER(3),
+        ename CHAR(10),
+        ecity CHAR(10),
+        esal NUMBER(8,2)
+    );
+
+
+INSERT INTO emp VALUES (101, 'Amit', 'Pune', 25000.50);
+INSERT INTO emp VALUES (102, 'Rahul', 'Mumbai', 30000.00);
+INSERT INTO emp VALUES (103, 'Sneha', 'Delhi', 28000.75);
+INSERT INTO emp VALUES (104, 'Priya', 'Nagpur', 27000.00);
+INSERT INTO emp VALUES (105, 'Karan', 'Nashik', 32000.25);
