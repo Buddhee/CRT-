@@ -1,0 +1,252 @@
+//Graphs in java
+import java.util.*;
+class Graph1
+{
+    int nodeCount;
+    ArrayList<String> nodes;
+    ArrayList<ArrayList<Integer>> graph;
+
+    public Graph1() 
+    {
+        nodeCount = 0;
+        nodes = new ArrayList<>();
+        graph = new ArrayList<>();
+    }
+
+    public void addNode(String v) {
+
+        if (nodes.contains(v)) 
+        {
+            System.out.println(v + " is already present");
+            return;
+        }
+
+        nodeCount++;
+        nodes.add(v);
+
+        ArrayList<Integer> temp = new ArrayList<>();
+
+        for (int i = 0; i < nodeCount; i++) {
+            temp.add(0);
+        }
+
+        graph.add(temp);
+
+        for (int i = 0; i < nodeCount - 1; i++) {
+            graph.get(i).add(0);
+        }
+
+        System.out.println("Node Added Successfully");
+    }
+
+    public void addEdge(String v1, String v2) {
+
+        int i = nodes.indexOf(v1);
+        int j = nodes.indexOf(v2);
+
+        if (i == -1 || j == -1) {
+            System.out.println("Invalid Vertex");
+            return;
+        }
+
+        graph.get(i).set(j, 1);
+        graph.get(j).set(i, 1);
+
+        System.out.println("Edge Added Successfully");
+    }
+
+    public void addUndirectedWeightedEdge(String v1, String v2, int weight) {
+
+        int i = nodes.indexOf(v1);
+        int j = nodes.indexOf(v2);
+
+        if (i == -1 || j == -1) {
+            System.out.println("Invalid Vertex");
+            return;
+        }
+
+        graph.get(i).set(j, weight);
+        graph.get(j).set(i, weight);
+
+        System.out.println("Weighted Edge Added");
+    }
+
+    public void addDirectedWeightedEdge(String v1, String v2, int weight) {
+
+        int i = nodes.indexOf(v1);
+        int j = nodes.indexOf(v2);
+
+        if (i == -1 || j == -1) {
+            System.out.println("Invalid Vertex");
+            return;
+        }
+
+        graph.get(i).set(j, weight);
+
+        System.out.println("Directed Weighted Edge Added");
+    }
+
+    public void deleteEdge(String v1, String v2) {
+
+        int i = nodes.indexOf(v1);
+        int j = nodes.indexOf(v2);
+
+        if (i == -1 || j == -1) {
+            System.out.println("Invalid Vertex");
+            return;
+        }
+
+        graph.get(i).set(j, 0);
+        graph.get(j).set(i, 0);
+
+        System.out.println("Edge Deleted");
+    }
+
+    public void deleteNode(String v) {
+
+        int index = nodes.indexOf(v);
+
+        if (index == -1) {
+            System.out.println("Vertex Not Found");
+            return;
+        }
+
+        nodes.remove(index);
+        graph.remove(index);
+
+        for (ArrayList<Integer> row : graph) {
+            row.remove(index);
+        }
+
+        nodeCount--;
+
+        System.out.println("Node Deleted");
+    }
+
+    public void printGraph() {
+
+        if (nodeCount == 0) {
+            System.out.println("Graph is Empty");
+            return;
+        }
+
+        System.out.println("\nVertices : " + nodes);
+
+        System.out.print("    ");
+        for (String v : nodes) {
+            System.out.printf("%4s", v);
+        }
+        System.out.println();
+
+        for (int i = 0; i < nodeCount; i++) {
+
+            System.out.printf("%4s", nodes.get(i));
+
+            for (int j = 0; j < nodeCount; j++) {
+                System.out.printf("%4d", graph.get(i).get(j));
+            }
+
+            System.out.println();
+        }
+    }
+
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        Graph1 obj = new Graph1();
+
+        while (true) {
+
+            System.out.println("\n===== GRAPH MENU =====");
+            System.out.println("1. Add Node");
+            System.out.println("2. Add Edge");
+            System.out.println("3. Add Undirected Weighted Edge");
+            System.out.println("4. Add Directed Weighted Edge");
+            System.out.println("5. Print Graph");
+            System.out.println("6. Delete Node");
+            System.out.println("7. Delete Edge");
+            System.out.println("0. Exit");
+
+            System.out.print("Enter Choice: ");
+            int ch = sc.nextInt();
+            sc.nextLine();
+
+            switch (ch) 
+            {
+
+                case 1:
+                    System.out.print("Enter Vertex: ");
+                    String v = sc.nextLine();
+                    obj.addNode(v);
+                    break;
+
+                case 2:
+                    System.out.print("Enter Vertex V1: ");
+                    String v1 = sc.nextLine();
+
+                    System.out.print("Enter Vertex V2: ");
+                    String v2 = sc.nextLine();
+
+                    obj.addEdge(v1, v2);
+                    break;
+
+                case 3:
+                    System.out.print("Enter Vertex V1: ");
+                    String uv1 = sc.nextLine();
+
+                    System.out.print("Enter Vertex V2: ");
+                    String uv2 = sc.nextLine();
+
+                    System.out.print("Enter Weight: ");
+                    int w1 = sc.nextInt();
+                    sc.nextLine();
+
+                    obj.addUndirectedWeightedEdge(uv1, uv2, w1);
+                    break;
+
+                case 4:
+                    System.out.print("Enter Source Vertex: ");
+                    String dv1 = sc.nextLine();
+
+                    System.out.print("Enter Destination Vertex: ");
+                    String dv2 = sc.nextLine();
+
+                    System.out.print("Enter Weight: ");
+                    int w2 = sc.nextInt();
+                    sc.nextLine();
+
+                    obj.addDirectedWeightedEdge(dv1, dv2, w2);
+                    break;
+
+                case 5:
+                    obj.printGraph();
+                    break;
+
+                case 6:
+                    System.out.print("Enter Vertex to Delete: ");
+                    String delNode = sc.nextLine();
+                    obj.deleteNode(delNode);
+                    break;
+
+                case 7:
+                    System.out.print("Enter Vertex V1: ");
+                    String d1 = sc.nextLine();
+
+                    System.out.print("Enter Vertex V2: ");
+                    String d2 = sc.nextLine();
+
+                    obj.deleteEdge(d1, d2);
+                    break;
+
+                case 0:
+                    System.out.println("Program Terminated...");
+                    sc.close();
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid Choice!");
+            }
+        }
+    }
+}
