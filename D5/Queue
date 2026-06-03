@@ -1,0 +1,123 @@
+import java.util.*;
+
+public class QueueArray {
+
+    static final int N = 5;
+
+    static int[] Queue = new int[N];
+
+    static int front = -1;
+    static int rear = -1;
+
+    static boolean isFull()
+    {
+        if (rear == N - 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    static boolean isEmpty()
+    {
+        if (front == -1 || front > rear)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    static void enqueue(int x)
+    {
+        if (isFull())
+        {
+            System.out.println("Queue overflow");
+        }
+        else if (isEmpty())
+        {
+            front = rear = 0;
+            Queue[rear] = x;
+        }
+        else
+        {
+            rear++;
+            Queue[rear] = x;
+        }
+    }
+
+    static void dequeue()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty");
+        }
+        else
+        {
+            System.out.println("Dequeued element is " + Queue[front]);
+            front++;
+
+            // Reset queue if empty
+            if (front > rear)
+            {
+                front = rear = -1;
+            }
+        }
+    }
+
+    static void display()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty");
+        }
+        else
+        {
+            System.out.print("Queue elements: ");
+
+            for (int i = front; i <= rear; i++)
+            {
+                System.out.print(Queue[i] + " ");
+            }
+
+            System.out.println();
+        }
+    }
+
+    static void peek()
+    {
+        if (isEmpty())
+        {
+            System.out.println("Queue is empty");
+        }
+        else
+        {
+            System.out.println("Front element is: " + Queue[front]);
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        enqueue(10);
+        enqueue(20);
+        enqueue(30);
+        enqueue(40);
+        enqueue(50);
+
+        display();
+
+        dequeue();
+
+        display();
+
+        peek();
+
+        enqueue(60);
+
+    }
+}
