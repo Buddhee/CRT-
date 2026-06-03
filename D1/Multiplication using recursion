@@ -1,0 +1,22 @@
+Program 5: Multiplication using recursion
+public class RecursiveMultiplication {
+
+    static int multiply(int a, int b) {
+        
+        if (a == 1) return b;
+        if (b == 1) return a;
+
+        
+        if (a == 0 || b == 0) return 0;
+
+        
+        return a + multiply(a, b - 1);
+    }
+
+    public static void main(String[] args) {
+        int num1 = 6;
+        int num2 = 3;
+        
+        System.out.println("Result: " + multiply(num1, num2));
+    }
+}
